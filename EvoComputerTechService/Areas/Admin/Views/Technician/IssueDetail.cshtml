@@ -1,0 +1,172 @@
+﻿@model IssueProductViewModel
+@{
+    decimal toplam = 0m;
+
+}
+<div class="col-md-12">
+    <div class="row">
+        @foreach (var item in Model.Products)
+        {
+            <div class="col-md-3 layout-spacing">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-content widget-content-area px-0 py-0 product-cat10">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="wrapper">
+                                        <div class="card-content-container text-center">
+                                            <div class="content">
+                                                button                                        <form asp-controller="Technician" asp-action="AddProduct" method="post" asp-route-id="@item.Id">
+
+                                                    <button class="btn btn-default mb-3">
+                                                        Urun Ekle
+                                                    </button>
+
+                                                </form>
+
+                                                <h5 class="card-pricing">@item.Price</h5>
+                                                <h1 class="title"><a href="#">@item.ProductName</a></h1>
+                                                <p class="card-text">
+                                                    @item.ProductDescription
+                                                </p>
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-6">
+                                                        <p class="wishlist float-right">
+                                                            <i class="flaticon-heart-1"></i>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-sm-6 col-6">
+                                                        <p class="zoom float-left">
+                                                            <i class="flaticon-attachment"></i>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+<section class="checkout_area bg_color sec_pad">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="cart_total_box" style="width:900px">
+                    <div class="card-body">
+                    <h3 class="checkout_title f_p f_600 f_size_20 mb_20">
+                        Products & Order Table
+                    </h3>
+                    <div id="order_review" class="woocommerce-checkout-review-order">
+                        <table class="shop_table woocommerce-checkout-review-order-table">
+                            <thead >
+                                <tr>
+                                    <th>ProductName</th>
+                                    <th>Product Description</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    @*   <th></th>*@
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model.IssueProducts)
+                            {
+                                <tbody>
+                                    <tr class="order_item">
+                                        <td class="price">@item.Product.ProductName</td>
+                                        <td class="price">@item.Product.ProductDescription</td>
+                                        <td class="price">@item.Product.Price</td>
+                                        <td class="price">@item.Quantity</td>
+                                        @if ((int)item.Issue.IssueState < 3)
+                                        {
+                                            <form asp-controller="Technician" asp-action="DeleteProduct" method="post" asp-route-id="@item.ProductId">
+
+                                            <td class="price">
+                                                <button class=" mb-3">
+                                                    Delete Product
+                                                </button>
+                                            </td>
+                                            </form>
+                                        }
+
+                                        @{
+                                            toplam += @item.Price;
+                                        }
+                                    </tr>
+
+                                </tbody>
+                            }
+
+                            <tr class="subtotal order">
+                                <td class="price">Order totals</td>
+                                <td class="total">@toplam</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="condition">
+
+
+                         @if ((int)TempData["buttonCheck"] <3)
+                            {
+                        <p>
+                            Your personal data will be used to process your order, support your experience
+                            throughout this website, and for other purposes described in our privacy policy.
+                        </p>
+                        <input type="checkbox" value="None" id="squarednine" name="check">
+                        <label class="l_text" for="squarednine">
+                            I have read and agree to the website terms
+                            and conditions <span>*</span>
+                        </label>
+                      @*  <div class="row"> *@
+                          <div class="d-flex justify-content-end">
+                         <button type="submit" class="button bg-info text-light ">
+                            <a asp-controller="Technician" asp-action="CompletedIssues" method="get">  Complete Issue  </a>
+                        </button>
+                        </div>
+                   @*     </div>*@
+                         }
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</section>
+
+@section Scripts
+ {
+<style>
+    tr {
+        padding: 0 30px 20px 0px
+    }
+
+    th {
+        padding: 0 30px 20px 0px
+    }
+
+    td {
+        padding: 0 30px 20px 0px
+    }
+
+        td > button {
+            color: red
+        }
+
+            td > button:hover {
+                color: blue;
+                background: yellow
+            }
+
+</style>
+ }
+

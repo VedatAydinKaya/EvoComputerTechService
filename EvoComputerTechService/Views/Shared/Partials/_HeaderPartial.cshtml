@@ -1,0 +1,161 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using EvoComputerTechService.Models.Identity
+@using Microsoft.AspNetCore.Http
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+
+<header class="header_area">
+    <nav class="navbar navbar-expand-lg menu_one menu_four hosting_menu">
+        <div class="container">
+            <a class="navbar-brand sticky_logo" asp-controller="Home" asp-action="Index">
+                <img src="~/img/logo2.png" srcset="~/img/logo2x-2.png 2x"
+                     alt="logo"><img src="~/img/logo.png" srcset="~/img/logo2x.png 2x" alt="">
+            </a>
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="menu_toggle">
+                    <span class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                    <span class="hamburger-cross">
+                        <span></span>
+                        <span></span>
+                    </span>
+                </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav menu w_menu m-auto">
+                    <li class="nav-item dropdown submenu">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            ANASAYFA
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="blog-grid.html" class="nav-link">Blog Grid DFSD</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="blog-grid-two.html" class="nav-link">Blog Grid Two</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown submenu">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            HAKKIMIZDA
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="blog-grid.html" class="nav-link">Blog Grid DFSD</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="blog-grid-two.html" class="nav-link">Blog Grid Two</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown submenu">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            HİZMETLERİMİZ
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="blog-grid.html" class="nav-link">Blog Grid DFSD</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="blog-grid-two.html" class="nav-link">Blog Grid Two</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown submenu">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            ÜRÜNLERİMİZ
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="blog-grid.html" class="nav-link">Blog Grid DFSD</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="blog-grid-two.html" class="nav-link">Blog Grid Two</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown submenu">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            İLETİŞİM
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="blog-grid.html" class="nav-link">Blog Grid DFSD</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="blog-grid-two.html" class="nav-link">Blog Grid Two</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown submenu">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            GALERİ
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="blog-grid.html" class="nav-link">Blog Grid DFSD</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="blog-grid-two.html" class="nav-link">Blog Grid Two</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @if (signInManager.IsSignedIn(Context.User))
+                    {
+        <li class="nav-item dropdown submenu">
+            <a asp-controller="Issue" asp-action="GetIssues" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                PROFİL
+            </a>
+            <ul class="dropdown-menu">
+                <li class="nav-item">
+                    <a asp-controller="Issue" asp-action="GetIssues" class="nav-link">KAYITLARIM</a>
+                </li>
+                <li class="nav-item">
+                    <a href="blog-grid-two.html" class="nav-link">Blog Grid Two</a>
+                </li>
+            </ul>
+        </li>
+}
+                </ul>
+
+                @if (signInManager.IsSignedIn(Context.User))
+                {
+                    <a class="event_btn btn_hover" asp-controller="Account" asp-action="Logout">ÇIKIŞ YAP</a>
+                    @if (Context.User.IsInRole(RoleNames.Admin))
+                    {
+                        <a class="event_btn btn_hover" asp-area="Admin" asp-controller="Admin" asp-action="Index">ADMİN PANEL</a>
+                    }
+                     @if (Context.User.IsInRole(RoleNames.Operator))
+                     {
+                        <a class="event_btn btn_hover" asp-area="Admin" asp-controller="Operator" asp-action="Index">OPERATOR PANEL</a>
+                     }
+                    @if (Context.User.IsInRole(RoleNames.Technician))
+                    {
+                        <a class="event_btn btn_hover" asp-area="Admin" asp-controller="Technician" asp-action="Index">TEKNİSYEN PANEL</a> 
+                     }
+                }
+                else
+                {
+                        <a class="event_btn btn_hover" asp-controller="Account" asp-action="Login">GİRİŞ YAP</a>
+                }
+
+
+
+            </div>
+        </div>
+    </nav>
+</header>
