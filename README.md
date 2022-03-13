@@ -1,5 +1,5 @@
-# EvoComputerTechService
-### A website was created that can serve customers who have broken pieces of computers or who wishes to get some services by going to their location
+# EvoComputerTechService( (Web Application))
+## A website was created that can serve customers who have broken pieces of computers or who wishes to get some services by going to their location
 
 
 ##### Technologies: 
